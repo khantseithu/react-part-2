@@ -11,11 +11,13 @@ interface Todo {
 const useTodos = () => {
   const fetchTodos = () =>
     axios
-      .get<Todo[]>("https://jsonplaceholder.typicode.com/todos")
+      .get<Todo[]>("https://xjsonplaceholder.typicode.com/todos")
       .then((res) => res.data);
   return useQuery<Todo[], Error>({
     queryKey: ["todos"],
     queryFn: fetchTodos,
+    //20 seconds
+    staleTime: 20000,
   });
 };
 
