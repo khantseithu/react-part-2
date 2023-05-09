@@ -1,28 +1,24 @@
-import { useState } from 'react';
-
-interface Task {
-  id: number;
-  title: string;
-}
+import { useReducer, useState } from "react";
+import tasksReducer from "./reducers/tasksReducer";
 
 const TaskList = () => {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [value, dispatch] = useReducer(tasksReducer, []);
 
   return (
     <>
       <button
         onClick={() =>
-          setTasks([
-            { id: Date.now(), title: 'Task ' + Date.now() },
-            ...tasks,
-          ])
+          dispatch({
+            type: "ADD",
+            task: { id: Date.now(), title: "New Task" },
+          })
         }
         className="btn btn-primary my-3"
       >
         Add Task
       </button>
       <ul className="list-group">
-        {tasks.map((task) => (
+        {value.map((task) => (
           <li
             key={task.id}
             className="list-group-item d-flex justify-content-between align-items-center"
@@ -30,9 +26,7 @@ const TaskList = () => {
             <span className="flex-grow-1">{task.title}</span>
             <button
               className="btn btn-outline-danger"
-              onClick={() =>
-                setTasks(tasks.filter((t) => t.id !== task.id))
-              }
+              onClick={() => dispatch({ type: "DELETE", id: task.id })}
             >
               Delete
             </button>
