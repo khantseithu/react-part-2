@@ -1,9 +1,8 @@
-import { useReducer, useState } from "react";
-import tasksReducer from "./reducers/tasksReducer";
+import { useContext } from "react";
+import TaskContext from "./contexts/taskContext";
 
 const TaskList = () => {
-  const [value, dispatch] = useReducer(tasksReducer, []);
-
+  const { tasks, dispatch } = useContext(TaskContext);
   return (
     <>
       <button
@@ -18,7 +17,7 @@ const TaskList = () => {
         Add Task
       </button>
       <ul className="list-group">
-        {value.map((task) => (
+        {tasks.map((task) => (
           <li
             key={task.id}
             className="list-group-item d-flex justify-content-between align-items-center"
