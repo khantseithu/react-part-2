@@ -7,7 +7,7 @@ interface Logout {
   type: "LOGOUT";
 }
 
-type LoginAction = LoginState | Logout;
+export type LoginAction = LoginState | Logout;
 
 const loginReducer = (state: string, action: LoginAction) => {
   switch (action.type) {
